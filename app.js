@@ -56,12 +56,7 @@ const db = require("./config/db")
 
 //Rotas
 app.get('/', (req, res) => {
-    Postagem.find().populate("categoria").sort({data: "desc"}).then((postagens) => {
-        res.render("index", {postagens: postagens})
-    }).catch((err) => {
-        req.flash("error_msg", "Houve um erro interno")
-        res.redirect("/404")
-    })
+    res.render("index")
 })
 
 //Demais rotas
