@@ -23,7 +23,7 @@ const db = require("./config/db")
 //Configurações
     //Sessão
     app.use(session({
-        secret: "cursodenode",
+        secret: "adlskj654x",
         resave: true,
         saveUninitialized: true
     }))
@@ -55,15 +55,27 @@ const db = require("./config/db")
     app.use(express.static(path.join(__dirname, "public")));
 
 //Rotas
+
+//Rota raíz
 app.get('/', (req, res) => {
     res.render("index")
+})
+
+//Rota de login
+app.get('/login', (req, res) => {
+    res.render("login")
+})
+
+//Rota de registro
+app.get('/register', (req, res) => {
+    res.render("register")
 })
 
 //Demais rotas
 app.use('/admin', admin);
 app.use("/usuarios", usuarios);
 
-//Outros
+//Configuração de porta
 const PORT = process.env.PORT || 8286
 app.listen(PORT, () => {
     console.log("Servidor rodando!");
