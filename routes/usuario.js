@@ -74,7 +74,6 @@ router.post("/registro", (req, res) => {
 });
 
 router.post("/login", (req, res, next) => {
-    console.log(req.body.email, req.body.senha)
     passport.authenticate("local", {
         successRedirect: "/admin/painel",
         failureRedirect: "/login",
