@@ -6,11 +6,6 @@ $('#formRegister').submit(function(event) {
     let email = $('#inputEmail').val()
     let senha = $('#inputPassword').val()
     let confirmarSenha = $('#confirmPassword').val()
-    console.log(nome)
-    console.log(sobrenome)
-    console.log(email)
-    console.log(senha)
-    console.log(confirmarSenha)
 
     $.ajax({
       url:'/usuarios/registro',
@@ -45,3 +40,5 @@ $('#formRegister').submit(function(event) {
       }
     })
   })
+
+  //////////////////////////////
