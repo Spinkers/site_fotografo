@@ -1,0 +1,100 @@
+ 
+
+<title>Fotógafo - Painel</title>
+
+<div id="page-top">
+
+  {{>_menuPainel}}
+
+    <div id="content-wrapper">
+
+      <div class="container-fluid">
+
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active">Visão geral</li>
+        </ol>
+
+        {{#if usuario.pendencia.ativo}}
+        <div class="alert alert-{{usuario.pendencia.mensagem.[2]}}" role="alert">
+          <h4 class="alert-heading">{{usuario.pendencia.mensagem.[0]}}</h4>
+          <p>{{usuario.pendencia.mensagem.[1]}}</p>
+          <hr>
+          <form method="POST">
+            <input type="hidden" name="idPendencia" value="{{usuario.pendencia._id}}">
+            <input type="hidden" name="linkPendencia" value="{{usuario.pendencia.mensagem.[3]}}">
+            <button formaction="/usuarios/continuarPagamento" type="submit" class="btn btn-warning">Continuar pagamento</button>
+            <button formaction="/usuarios/desistirPagamento" type="submit" class="btn btn-danger">Desistir do pagamento</button>
+          </form>
+        </div>
+        {{else}}
+        {{>_infoCards}}
+        {{/if}}
+
+        <!-- Area Chart Example-->
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="fas fa-clipboard"></i>
+            Suas listas</div>
+          <div class="card-body">
+            {{#each usuario.categorias}}
+              <div class="card" style="width: 18rem; display: inline-block">
+                <img src="{{imagem}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">Lista de {{nome}}</h5>
+                  <p class="card-text">
+                    {{descricao}} 
+                  </p>
+                  <form action="/usuarios/lista" method="POST">
+                    <input name="id" type="hidden" value="{{_id}}">
+                    <button type="submit" class="btn btn-primary">Visualizar</button>
+                  </form>
+                </div>
+              </div>
+            {{else}}
+
+            {{/each}}
+          </div>
+          <div class="card-footer small text-muted">Ultima compra: 16 dias atrás ás 11:59</div>
+        </div>
+
+
+      </div>
+      <!-- /.container-fluid -->
+
+            {{>_footer}}
+
+    </div>
+    <!-- /.content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Pronto para sair?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Selecione "Sair" se você esta pronto para encerrar sua sessão atual.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+          <a class="btn btn-primary" href="/usuarios/logout">Sair</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>

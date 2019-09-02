@@ -12,9 +12,9 @@ const Ticket = mongoose.model("tickets")
 const {eAdmin} = require("../helpers/eAdmin")
 
 /* ROTA PRINCIPAL DO ADM (TELA DE OPERAÇÕES)*/
-router.get('/', eAdmin, (req, res) => {
-    res.render("admin/index");     
-});
+router.get("/painel", eAdmin, (req, res) => {
+    res.render("usuarios/painel")
+})
 
 
 module.exports = router;
