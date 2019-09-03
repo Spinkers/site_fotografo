@@ -13,7 +13,27 @@ const {eAdmin} = require("../helpers/eAdmin")
 
 /* ROTA PRINCIPAL DO ADM (TELA DE OPERAÇÕES)*/
 router.get("/painel", eAdmin, (req, res) => {
-    res.render("usuarios/painel")
+    res.render("admin/painel")
+})
+
+router.get("/novapostagem", eAdmin, (req,res)=> {
+    res.render("admin/novapostagem")
+})
+
+router.post("/novapostagem", eAdmin, (req,res) => {
+    console.log(req.body.titulo, req.body.descricao, req.body.categoria)
+    const novaPostagem = new Postagem ({
+        titulo: req.body.titulo,
+        descricao: req.body.descricao,
+        categoria: req.body.categoria
+    })
+    novaPostagem.save().then(() => {
+        console.log("Salvo com sucesso")
+        res.send("Ok")
+    }).catch((err) => {
+        console.log("Não foi possivel salvar" + err)
+        res.send("Fail")
+    })
 })
 
 

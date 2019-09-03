@@ -42,3 +42,57 @@ $('#formRegister').submit(function(event) {
   })
 
   //////////////////////////////
+
+  $('#formPostagem').submit(function(event) {
+    event.preventDefault();
+    let titulo = $('#titulo').val()
+    let descricao = $('#descricao').val()
+    let categoria = $('#categoria').val()
+    let linkImagem = $('#linkImagem').val()
+
+    console.log(titulo);
+    console.log(descricao);
+    console.log(categoria);
+    console.log(linkImagem);
+
+
+    $.ajax({
+      url:'/admin/novapostagem',
+      method:'post',
+      data: {
+        titulo: titulo,
+        descricao: descricao,
+        categoria: categoria,
+        linkImagem: linkImagem
+      },
+      success: function(res) {
+          if(res != "Ok"){
+            console.log(res)
+            var templateSource   =  `<div class="alert alert-danger">"Não foi possível cadastrar uma nova postagem!"</div>`;
+            
+            template = Handlebars.compile(templateSource),
+  
+            finalHTML = template(res);
+  
+            $('#mostrarErros').html(finalHTML);
+  
+        }else{
+          console.log(res)
+
+          var templateSource   =  `<div class="alert alert-success">"Postagem cadastrada com sucesso!"</div>`;
+
+          template = Handlebars.compile(templateSource),
+
+          finalHTML = template(res);
+
+          $('#mostrarErros').html(finalHTML);
+
+          $('#titulo').val("");
+          $('#descricao').val("");
+          $('#linkImagem').val("");
+        }
+      }
+    })
+  })
+
+  //////////////////////////////

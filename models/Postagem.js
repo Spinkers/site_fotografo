@@ -6,17 +6,8 @@ const Postagem = new Schema({
         type: String,
         required: true
     },
-    slug: {
-        type: String,
-        required: true
-    },
     descricao: {
-        type: String,
-        required: true
-    },
-    conteudo: {
-        type: String,
-        required: true
+        type: String
     },
     categoria: {
         type: Schema.Types.ObjectId,

@@ -89,11 +89,21 @@
           <span>Customizar</span></a>
       </li>
 
-      <li class="nav-item">
-        <a class="nav-link" href="/usuarios/orcamento">
-          <i class="fas fa-fw fa-star"></i>
-          <span>Orçamento</span></a>
-      </li>
+      <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-fw fa-folder-open"></i>
+            <span>Conteúdo</span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <h6 class="dropdown-header">Criar:</h6>
+            <a class="dropdown-item" href="/admin/novapostagem">Nova postagem</a>
+            <a class="dropdown-item" href="/admin/novacategoria">Nova categoria</a>
+            <div class="dropdown-divider"></div>
+            <h6 class="dropdown-header">Editar:</h6>
+            <a class="dropdown-item" href="/admin/editarUsuarios">Editar postagens</a>
+            <a class="dropdown-item" href="/admin/editarCategorias">Editar categorias</a>
+          </div>
+        </li>
 
       <li class="nav-item">
         <a class="nav-link" href="/usuarios/ouvidoria">
@@ -101,25 +111,6 @@
           <span>Ouvidoria</span></a>
       </li>
 
-      {{#if user.eAdmin}}
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-fw fa-user"></i>
-            <span>Admin</span>
-          </a>
-          <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <h6 class="dropdown-header">Criar:</h6>
-            <a class="dropdown-item" href="/admin/novaLista">Nova lista</a>
-            <a class="dropdown-item" href="/admin/novoContato">Novo contato</a>
-            <div class="dropdown-divider"></div>
-            <h6 class="dropdown-header">Editar:</h6>
-            <a class="dropdown-item" href="/admin/editarUsuarios">Editar usuários</a>
-            <a class="dropdown-item" href="/admin/editarCategorias">Editar listas</a>
-            <h6 class="dropdown-header">Gerenciar:</h6>
-            <a class="dropdown-item" href="/admin/operacoes">Operações</a>
-            <a class="dropdown-item" href="/admin/tickets">Tickets</a>
+      
 
-          </div>
-        </li>
-      {{/if}}
     </ul>
