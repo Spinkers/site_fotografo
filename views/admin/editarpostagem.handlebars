@@ -1,0 +1,112 @@
+<title>Fotógafo - Editar Postagem</title>
+
+<div id="mostrarErros"></div>
+
+<div id="page-top">
+
+  {{>_menuPainel}}
+
+    <div id="content-wrapper">
+
+      <div class="container-fluid">
+
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active">Editar Postagem</li>
+        </ol>
+
+        <!-- Area Chart Example-->
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="fas fa-clipboard"></i>
+            Editar Postagem</div>
+          <div class="card-body">
+            
+              <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th>Título</th>
+                    <th>Descrição</th>
+                    <th>Fonte</th>
+                    <th>Categoria</th>
+                    <th>Data</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <th>Título</th>
+                    <th>Descrição</th>
+                    <th>Fonte</th>
+                    <th>Categoria</th>
+                    <th>Data</th>
+                  </tr>
+                </tfoot> 
+                <tbody>
+                  {{#each postagem}}
+                        <tr id="{{_id}}">
+                          <td><img src="{{linkImagem}}" style="width: 150px"></td>
+                          <td>{{titulo}}</td>
+                          <td>{{descricao}}</td>
+                          <td>{{categoria.nome}}</td>
+                          <td>{{data}}</td>
+                          <td>
+                            <button id="{{_id}}" onclick="transferirInfoUsuario(this.id)" class="btn btn-primary" data-toggle="modal" data-target="#modalEditar">
+                              <i class="fas fa-fw fa-user-edit"></i>
+                            </button>
+                          </td>
+                          <input name="id" type="hidden" value="{{_id}}">
+                        </tr>
+                    </form>
+                  {{else}}
+
+                  {{/each}}
+                 
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+          <div class="card-footer small text-muted">Ultima compra: 16 dias atrás ás 11:59</div>
+        </div>
+
+
+      </div>
+      <!-- /.container-fluid -->
+
+            {{>_footer}}
+
+    </div>
+    <!-- /.content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Pronto para sair?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Selecione "Sair" se você esta pronto para encerrar sua sessão atual.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+          <a class="btn btn-primary" href="/usuarios/logout">Sair</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>

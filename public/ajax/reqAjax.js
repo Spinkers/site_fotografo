@@ -96,3 +96,45 @@ $('#formRegister').submit(function(event) {
   })
 
   //////////////////////////////
+
+  $('#formCategoria').submit(function(event) {
+    event.preventDefault();
+    let titulo = $('#titulo').val()
+
+    console.log(titulo);
+
+    $.ajax({
+      url:'/admin/novacategoria',
+      method:'post',
+      data: {
+        titulo: titulo
+      },
+      success: function(res) {
+          if(res != "Ok"){
+            console.log(res)
+            var templateSource   =  `<div class="alert alert-danger">"Não foi possível cadastrar uma nova categoria!"</div>`;
+            
+            template = Handlebars.compile(templateSource),
+  
+            finalHTML = template(res);
+  
+            $('#mostrarErros').html(finalHTML);
+  
+        }else{
+          console.log(res)
+
+          var templateSource   =  `<div class="alert alert-success">"Categoria cadastrada com sucesso!"</div>`;
+
+          template = Handlebars.compile(templateSource),
+
+          finalHTML = template(res);
+
+          $('#mostrarErros').html(finalHTML);
+
+          $('#titulo').val("");
+        }
+      }
+    })
+  })
+
+  //////////////////////////////

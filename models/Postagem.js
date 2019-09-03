@@ -9,6 +9,10 @@ const Postagem = new Schema({
     descricao: {
         type: String
     },
+    linkImagem: {
+        type: String,
+        required: true
+    },
     categoria: {
         type: Schema.Types.ObjectId,
         ref: "categorias",

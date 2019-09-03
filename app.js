@@ -58,7 +58,10 @@ const db = require("./config/db")
 
 //Rota raíz
 app.get('/', (req, res) => {
-    res.render("index")
+    Postagem.find().then((postagem) => {
+        console.log(postagem)
+        res.render("index", {postagem: postagem})
+    })
 })
 
 //Rota de login

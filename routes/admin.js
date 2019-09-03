@@ -17,22 +17,45 @@ router.get("/painel", eAdmin, (req, res) => {
 })
 
 router.get("/novapostagem", eAdmin, (req,res)=> {
-    res.render("admin/novapostagem")
+    Categoria.find().then((categoria) => {
+        res.render("admin/novapostagem", {categoria: categoria})
+    })
 })
 
 router.post("/novapostagem", eAdmin, (req,res) => {
-    console.log(req.body.titulo, req.body.descricao, req.body.categoria)
     const novaPostagem = new Postagem ({
         titulo: req.body.titulo,
+        linkImagem: req.body.linkImagem,
         descricao: req.body.descricao,
         categoria: req.body.categoria
     })
     novaPostagem.save().then(() => {
-        console.log("Salvo com sucesso")
         res.send("Ok")
     }).catch((err) => {
-        console.log("Não foi possivel salvar" + err)
         res.send("Fail")
+    })
+})
+
+router.get("/novacategoria", eAdmin, (req,res) => {
+    res.render("admin/novacategoria")
+})
+
+router.post("/novacategoria", eAdmin, (req,res) => {
+    const novaCategoria = new Categoria({
+        nome: req.body.titulo
+    })
+    novaCategoria.save().then(() => {
+        console.log("Categoria salva com sucesso!")
+        res.send("Ok")
+    }).catch((err) => {
+        console.log("Não foi possivel salvar a categoria" + err)
+        res.send("Fail")
+    })
+})
+
+router.get("/editarpostagem", eAdmin, (req,res) => {
+    Postagem.find().populate("categoria").then((postagem) => {
+        res.render("admin/editarpostagem", {postagem: postagem})
     })
 })
 

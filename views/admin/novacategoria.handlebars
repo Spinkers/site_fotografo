@@ -1,4 +1,4 @@
-<title>Fotógafo - Nova Postagem</title>
+<title>Fotógafo - Nova Categoria</title>
 
 <div id="mostrarErros"></div>
 
@@ -15,33 +15,20 @@
           <li class="breadcrumb-item">
             <a href="#">Dashboard</a>
           </li>
-          <li class="breadcrumb-item active">Nova Postagem</li>
+          <li class="breadcrumb-item active">Nova Categoria</li>
         </ol>
 
         <!-- Area Chart Example-->
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-clipboard"></i>
-            Nova Postagem</div>
+            Nova Categoria</div>
           <div class="card-body">
             
-              <form id="formPostagem">
+              <form id="formCategoria">
 
                   <label for="titulo">Título: </label>
-                  <input placeholder="Jôaninhas" type="text" class="form-control" id="titulo">
-
-                  <label for="descricao">Descrição: </label>
-                  <textarea placeholder="Foto tal tirada no lugar tal" type="text" class="form-control" id="descricao"></textarea>
-
-                  <label class="mt-3" for="categoria">Categoria: </label>
-                  <select class="form-control" id="categoria">
-                      {{#each categoria}}
-                      <option value="{{_id}}">{{nome}}</option>
-                      {{/each}}
-                  </select>
-
-                  <label class="mt-3" for="linkImagem">Imagem: </label>
-                  <input placeholder="https://imgur.com/6sdf1"  type="text" class="form-control" id="linkImagem">
+                  <input placeholder="Paisagens" type="text" class="form-control" id="titulo">
 
                   <button type="submit" class="btn btn-primary mt-3">Salvar</button>
 
