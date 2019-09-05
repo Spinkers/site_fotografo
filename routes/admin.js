@@ -55,9 +55,27 @@ router.post("/novacategoria", eAdmin, (req,res) => {
 
 router.get("/editarpostagem", eAdmin, (req,res) => {
     Postagem.find().populate("categoria").then((postagem) => {
-        res.render("admin/editarpostagem", {postagem: postagem})
+        Categoria.find().then((categoria) => {
+            res.render("admin/editarpostagem", {postagem: postagem, categoria: categoria})
+        })
     })
 })
 
+router.post("/editarpostagem", eAdmin, (req, res) => {
+    Postagem.findOne({_id: req.body.id}).then((postagem) => {
+        postagem.titulo = req.body.titulo,
+        postagem.descricao = req.body.descricao,
+        postagem.linkImagem = req.body.linkImagem,
+        postagem.categoria = req.body.categoria
+
+        postagem.save().then(() => {
+            res.send("Ok")
+        }).catch((err) => {
+            res.send("Fail")
+        })
+    }).catch((err) => {
+        res.send("417")
+    })
+})
 
 module.exports = router;

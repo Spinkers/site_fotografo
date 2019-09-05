@@ -1,5 +1,46 @@
 <title>Fotógafo - Editar Postagem</title>
 
+<!-- Modal -->
+<div class="modal fade" id="modalEditarPostagem" tabindex="-1" role="dialog" aria-labelledby="modalEditarPostagemTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalEditarPostagemTitle">Editar Postagem</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="formEditarPostagem">
+          <input type="hidden" id="id2">
+
+          <label class="mt-3" for="titulo2">Título </label>
+          <input type="text" class="form-control" id="titulo2">
+
+          <label class="mt-3" for="descricao2">Descrição </label>
+          <input type="text" class="form-control" id="descricao2">
+
+          <label class="mt-3" for="linkImagem2">Link da imagem </label>
+          <input type="text" class="form-control" id="linkImagem2">
+
+          <label class="mt-3" for="categoria2">Categoria </label>
+          <select id="categoria2" id="categoria2" class="form-control">
+            {{#each categoria}}
+              <option value="{{_id}}">{{nome}}</option>
+            {{/each}}
+          </select>
+
+          <button type="submit" class="btn btn-primary mt-3" >Salvar</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div id="mostrarErros"></div>
 
 <div id="page-top">
@@ -29,32 +70,35 @@
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                   <tr>
+                    <th>Imagem</th>
                     <th>Título</th>
                     <th>Descrição</th>
-                    <th>Fonte</th>
                     <th>Categoria</th>
                     <th>Data</th>
+                    <th>Editar</th>
                   </tr>
                 </thead>
                 <tfoot>
                   <tr>
+                    <th>Imagem</th>
                     <th>Título</th>
                     <th>Descrição</th>
-                    <th>Fonte</th>
                     <th>Categoria</th>
                     <th>Data</th>
+                    <th>Editar</th>
                   </tr>
                 </tfoot> 
                 <tbody>
                   {{#each postagem}}
-                        <tr id="{{_id}}">
-                          <td><img src="{{linkImagem}}" style="width: 150px"></td>
+                        <tr id="{{_id}}***">
+                          <input type="hidden" value="{{linkImagem}}">
+                          <td><img src="{{linkImagem}}" style="width: 150px; height: 150px"></td>
                           <td>{{titulo}}</td>
                           <td>{{descricao}}</td>
                           <td>{{categoria.nome}}</td>
                           <td>{{data}}</td>
                           <td>
-                            <button id="{{_id}}" onclick="transferirInfoUsuario(this.id)" class="btn btn-primary" data-toggle="modal" data-target="#modalEditar">
+                            <button id="{{_id}}" onclick="transferirDados(this.id)" class="btn btn-primary" data-toggle="modal" data-target="#modalEditarPostagem">
                               <i class="fas fa-fw fa-user-edit"></i>
                             </button>
                           </td>
@@ -110,3 +154,6 @@
   </div>
   
 </div>
+
+
+<script src="/js/transferirDados.js"></script>

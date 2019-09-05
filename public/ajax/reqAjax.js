@@ -138,3 +138,52 @@ $('#formRegister').submit(function(event) {
   })
 
   //////////////////////////////
+
+  $('#formEditarPostagem').submit(function(event) {
+    event.preventDefault();
+    let id = $('#id2').val()
+    let titulo = $('#titulo2').val()
+    let descricao = $('#descricao2').val()
+    let linkImagem = $('#linkImagem2').val()
+    let categoria = $('#categoria2').val()
+
+    console.log(titulo);
+
+    $.ajax({
+      url:'/admin/editarpostagem',
+      method:'post',
+      data: {
+        id: id,
+        titulo: titulo,
+        descricao: descricao,
+        linkImagem: linkImagem,
+        categoria: categoria
+      },
+      success: function(res) {
+          if(res != "Ok"){
+            console.log(res)
+            var templateSource   =  `<div class="alert alert-danger">"Não foi possível salvar alterações!"</div>`;
+            
+            template = Handlebars.compile(templateSource),
+  
+            finalHTML = template(res);
+  
+            $('#mostrarErros').html(finalHTML);
+  
+        }else{
+          console.log(res)
+
+          var templateSource   =  `<div class="alert alert-success">"Alterações salvas com sucesso!"</div>`;
+
+          template = Handlebars.compile(templateSource),
+
+          finalHTML = template(res);
+
+          $('#mostrarErros').html(finalHTML);
+
+        }
+      }
+    })
+  })
+
+  //////////////////////////////
