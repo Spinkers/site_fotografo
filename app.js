@@ -15,6 +15,8 @@ require("./models/Postagem")
 const Postagem = mongoose.model("postagens")
 require("./models/Categoria")
 const Categoria = mongoose.model("categorias")
+require("./models/Slide")
+const Slide = mongoose.model("slides")
 //Carregando configurações de banco
 const passport = require("passport")
 require("./config/auth")(passport)
@@ -58,9 +60,10 @@ const db = require("./config/db")
 
 //Rota raíz
 app.get('/', (req, res) => {
-    Postagem.find().then((postagem) => {
-        console.log(postagem)
-        res.render("index", {postagem: postagem})
+    Slide.find({ativo: true}).then((slide) => {
+        Postagem.find().then((postagem) => {
+            res.render("index", {slide: slide, postagem: postagem})
+        })
     })
 })
 

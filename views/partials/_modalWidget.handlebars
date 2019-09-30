@@ -1,0 +1,868 @@
+<!-- Modal do Slider-->
+        <div class="modal fade" id="modalSlide" tabindex="-1" role="dialog" aria-labelledby="modalSlideLabel" aria-hidden="true">
+          <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalSlideLabel">Slideshow</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                        <p style="color: gray">Torne a experiência de seus clientes mais visual!</p>
+                        <hr />
+
+                        <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Adicionar novo slide</button>
+
+                        <div class="collapse" id="collapseExample">
+                          <div class="card card-body">
+                              <form id="formSlide">
+                                
+                                <div class="row mt-2">
+                                    <div class="col">
+                                      <label for="titulo">Título: </label>
+                                      <input type="text" class="form-control" placeholder="Meninas Super-poderosas" name="titulo" id="tituloSlide">
+                                    </div>
+                                    <div class="col">
+                                      <label for="imagem">Imagem: </label>
+                                      <input type="text" class="form-control" placeholder="https://www.imgur.com/xd655d.jpg" name="imagem" id="imagemSlide">
+                                    </div>
+                                </div>
+
+                                <div class="row mt-2">
+                                    <div class="col">
+                                      <label for="nomeBotao">Texto do botão: </label>
+                                      <input type="text" class="form-control" placeholder="Click aqui" name="nomeBotao" id="nomeBotaoSlide">
+                                    </div>
+                                    <div class="col">
+                                      <label for="linkBotao">Link do botão: </label>
+                                      <input type="text" class="form-control" placeholder="https://www.conexcode.com/algumaCoisa" name="linkBotao" id="linkBotaoSlide">
+                                    </div>
+                                </div>
+
+                                <label class="mt-2" for="descricao">Descrição: </label>
+                                <textarea name="descricao" id="descricaoSlide" class="form-control" placeholder="Açúcar, tempeiro, e tudo o que há de bom..."></textarea>
+                                
+                                <input type="hidden" name="inicial" id="inicial" value="">
+
+                                <div class="custom-control custom-switch mt-2">
+                                  <input onclick="definirInicio(this.checked)" type="checkbox" class="custom-control-input" id="tornarInicial">
+                                  <label class="custom-control-label" for="tornarInicial">Definir como inicial</label>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary mt-2">Adicionar</button>
+                              </form>
+                          </div>
+                        </div>
+
+                      
+
+                        <div style="max-height: 400px; overflow-y: auto" id="listaSlides">
+                          {{#each slide}}
+                            <div class="card mb-3" id="{{_id}}***">
+                              <div class="row no-gutters">
+                                <div class="col-md-4"><img src="{{imagem}}" class="card-img"></div>
+                                  <div class="col-md-8">
+                                    <div class="card-body">
+                                      <div class="row">
+                                        <div class="col-8"><h5 class="card-title">{{titulo}}</h5></div>
+                                          <div class="col-4">
+                                            <div style="text-align: right">
+                                              {{#if inicial}}
+                                              <span class="badge badge-success">Inicial</span>
+                                              {{else}}
+                                              <div></div>
+                                              {{/if}}
+                                            </div>
+                                          </div>
+                                        </div>
+
+                                  <p class="card-text">{{descricao}}</p>
+                                  <input type="hidden" id="textoBotao" value="{{nomeBotao}}">
+                                  <input type="hidden" id="imagemBotao" value="{{imagem}}">
+                                  <input type="hidden" id="linkBotao" value="{{linkBotao}}">
+                                  <div class="row">
+                                    <div class="col-8">
+                                      <p class="card-text"><small class="text-muted">{{data}}</small></p>
+                                    </div>
+                                    <div class="col-4">
+                                      <div style="text-align: right">
+                                        <button class="btn btn-warning" id="{{_id}}" onclick="transferirSlide(this.id)" data-toggle="modal" data-target="#modalEdit"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          {{/each}}
+                         </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal editar slide -->
+        <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modalEditTitle" aria-hidden="true">
+           
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalEditTitle">Editar slide</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+                <form action="/admin/alterarSlide" method="POST">
+                  <div class="modal-body">
+                    <input type="hidden" name="idSlide" id="idSlide">
+                        <div class="row mt-2">
+                            <div class="col">
+                              <label for="nomeSlide2">Título: </label>
+                              <input type="text" class="form-control" placeholder="Meninas Super-poderosas" name="nomeSlide2" id="nomeSlide2">
+                            </div>
+                            <div class="col">
+                              <label for="imagemSlide2">imagem: </label>
+                              <input type="text" class="form-control" placeholder="https://www.imgur.com/xd655d.jpg" name="imagemSlide2" id="imagemSlide2">
+                            </div>
+                        </div>
+
+                        <div class="row mt-2">
+                            <div class="col">
+                              <label for="nomeBotaoSlide2">Texto do botão: </label>
+                              <input type="text" class="form-control" placeholder="Click aqui" name="nomeBotaoSlide2" id="nomeBotaoSlide2">
+                            </div>
+                            <div class="col">
+                              <label for="linkBotaoSlide2">Link do botão: </label>
+                              <input type="text" class="form-control" placeholder="https://www.conexcode.com/algumaCoisa" name="linkBotaoSlide2" id="linkBotaoSlide2">
+                            </div>
+                        </div>
+
+                        <label class="mt-2" for="descricaoSlide2">Descrição: </label>
+                        <textarea class="form-control" placeholder="Açúcar, tempeiro, e tudo o que há de bom..." name="descricaoSlide2" id="descricaoSlide2"></textarea>
+                        
+                        <input type="hidden" name="inicialSlide" id="inicialSlide" value="">
+
+                        <div class="custom-control custom-switch mt-2">
+                          <input onclick="alterarInicialSlide(this.checked)" type="checkbox" class="custom-control-input" name="tornarInicialSlide" id="tornarInicialSlide">
+                          <label class="custom-control-label" for="tornarInicialSlide">Definir como inicial</label>
+                        </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Savar alterações</button>
+                  </div>
+                </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal de Quem Somos -->
+        <div class="modal fade" id="modalQuemSomos" tabindex="-1" role="dialog" aria-labelledby="modalQuemSomosTitle" aria-hidden="true">
+          <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalQuemSomosTitle">Quem somos</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="tituloDescricao-tab" data-toggle="tab" href="#tituloDescricao" role="tab" aria-controls="tituloDescricao" aria-selected="true">Título & Descrição</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="novoCard-tab" data-toggle="tab" href="#novoCard" role="tab" aria-controls="novoCard" aria-selected="false">Novo card</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="editarCards-tab" data-toggle="tab" href="#editarCards" role="tab" aria-controls="editarCards" aria-selected="false">Editar Cards</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                  <div class="tab-pane fade show active" id="tituloDescricao" role="tabpanel" aria-labelledby="tituloDescricao-tab">
+                    <div class="card card-body">
+                      <form id="formQuemsomos">
+                        <label for="titulo">Título: </label>
+                        <input class="form-control" type="text" placeholder="Quem somos" name="titulo" id="tituloQuemsomos" value="{{quemsomos.[0].titulo}}">
+
+                        <label class="mt-2" for="descricao">Descrição: </label>
+                        <textarea class="form-control" placeholder="Fundada em tal ano, a empresa tal surgiu para..." name="descricao" id="descricaoQuemsomos">{{quemsomos.[0].descricao}}</textarea>
+
+                        <button type="submit" class="btn btn-success mt-2">Salvar alterações</button>
+                      </form>
+                    </div>
+                  </div>
+
+                  <div class="tab-pane fade" id="novoCard" role="tabpanel" aria-labelledby="novoCard-tab">
+                    <div class="card card-body">
+                      <form id="novoCardQuemSomos">
+                          <div class="row mt-2">
+                            <div class="col">
+                              <label for="titulo">Título: </label>
+                              <input class="form-control" type="text" placeholder="Título do card" name="titulo" id="tituloNovoCardQuemSomos">
+                            </div>
+                            
+                            <div class="col">
+                              <label for="imagem">Imagem: </label>
+                              <input type="text" class="form-control" placeholder="https://www.imgur.com/xd655d.jpg" name="imagem" id="imagemNovoCardQuemSomos">
+                            </div>
+
+                            <div class="col">
+                              <label for="icone">Ícone: </label>
+                              <br />
+                              <button style="width: 100%; border-style: solid; border-color: #ced4da" class="btn btn-light" id="icone" data-search="false" role="iconpicker"></button>
+                            </div>
+                          </div>
+
+                          <label class="mt-2" for="descricao">Descrição: </label>
+                          <textarea class="form-control" placeholder="Descrição do card..." name="descricao" id="descricaoNovoCardQuemSomos"></textarea>
+
+                          <button type="submit" class="btn btn-success mt-2">Adicionar Card</button>
+                      </form>
+                    </div>
+                  </div>
+
+                  <div class="tab-pane fade" id="editarCards" role="tabpanel" aria-labelledby="editarCards-tab">
+                    <div class="card card-body">
+                      <form action="/admin/alterarCardsQuemsomos" method="POST">
+                          <div class="card-group mt-2" id="listaCardsQuemSomos">
+                            {{#each quemsomos.[0].cards}}
+                              <div class="card" style="width: 18rem;">
+                                <img src="{{imagem}}" class="card-img-top">
+                                  <button style="border-radius: 50%; max-height: 60px; max-width: 60px; min-height: 60px; min-width: 60px; border-style: solid; border-width: 5px; border-color: white;" class="btn btn-success mt-n4 mx-auto" data-icon="{{icone}}" data-search="false" data-iconset="ionicon" role="iconpicker"></button>
+                                <div class="card-body">
+
+                                  <input type="text" class="form-control" placeholder="https://imgur.com/s6d51" name="imagem" id="imagem" value="{{imagem}}">
+                                  <input type="text" class="form-control mt-2" placeholder="Nossa missão" name="titulo" id="titulo" value="{{titulo}}">
+                                  <input type="hidden" name="idCard" id="idCard" value="{{_id}}">
+                                  <textarea class="form-control mt-2" placeholder="Transformar problemas em soluções..." name="descricao" id="descricao">{{descricao}}</textarea>
+                                </div>
+                              </div>
+                            {{/each}}
+                          </div>
+                          <hr />
+                            <button type="submit" class="btn btn-success">Salvar alterações</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal de Serviços-->
+        <div class="modal fade" id="modalServicos" tabindex="-1" role="dialog" aria-labelledby="modalServicosTitle" aria-hidden="true">
+          <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalServicosTitle">Serviços</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="tituloDescricao2-tab" data-toggle="tab" href="#tituloDescricao2" role="tab" aria-controls="tituloDescricao2" aria-selected="true">Título & Descrição</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="novoServico-tab" data-toggle="tab" href="#novoServico" role="tab" aria-controls="novoServico" aria-selected="false">Novo Serviço</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="editarServicos-tab" data-toggle="tab" href="#editarServicos" role="tab" aria-controls="editarServicos" aria-selected="false">Editar Serviços</a>
+                  </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                  <div class="tab-pane fade show active" id="tituloDescricao2" role="tabpanel" aria-labelledby="tituloDescricao2-tab">
+                    <div class="card card-body">
+                      <form id="formServicos">
+                        <label for="titulo">Título: </label>
+                        <input class="form-control" type="text" placeholder="Serviços" name="titulo" id="tituloServicos" value="{{servico.[0].titulo}}">
+
+                        <label class="mt-2" for="descricao">Descrição: </label>
+                        <textarea class="form-control" placeholder="Do que exatamente você precisa? um site na internet, um aplicativo..." name="descricao" id="descricaoServicos">{{servico.[0].descricao}}</textarea>
+
+                        <button type="submit" class="btn btn-success mt-2">Salvar alterações</button>
+                      </form>
+                    </div>
+                  </div>
+
+                  <div class="tab-pane fade" id="novoServico" role="tabpanel" aria-labelledby="novoServico-tab">
+                    <div class="card card-body">
+                      <form id="novoCardServicos">
+                          <div class="row mt-2">
+                            <div class="col">
+                              <label for="titulo">Título: </label>
+                              <input class="form-control" type="text" placeholder="Título do card" name="titulo" id="tituloNovoCardServicos">
+                            </div>
+                            
+                            <div class="col">
+                              <label for="icone">Ícone: </label>
+                              <br />
+                              <button style="width: 100%; border-style: solid; border-color: #ced4da" class="btn btn-light" id="icone" data-search="false" data-iconset="ionicon" role="iconpicker"></button>
+                            </div>
+                          </div>
+
+                          <label class="mt-2" for="descricao">Descrição: </label>
+                          <textarea class="form-control" placeholder="Descrição do card..." name="descricao" id="descricaoNovoCardServicos"></textarea>
+
+                          <button type="submit" class="btn btn-success mt-2">Adicionar Serviço</button>
+                      </form>
+
+                    </div>
+                  </div>
+
+                  <div class="tab-pane fade" id="editarServicos" role="tabpanel" aria-labelledby="editarServicos-tab">
+                    <div class="card card-body">
+                        <div style="max-height: 400px; overflow-y: auto">
+                          <form id="listaServicos">
+                                  {{#each servico.[0].cards}}
+                                  <div style="display: inline-block" class="card-group mt-2">
+                                      <div class="card" style="width: 18rem;">
+                                        <div class="card-body">
+                                          <button style="width: 100%" class="btn btn-light" data-icon="{{icone}}" data-search="false" data-iconset="ionicon" role="iconpicker"></button>
+                                          <input type="text" class="form-control mt-2" placeholder="Nome do serviço..." name="titulo" id="tituloServicoAlterar" value="{{titulo}}">
+                                          <input type="hidden" name="idCard" id="idCardAlterarServico" value="{{_id}}">
+                                          <textarea class="form-control mt-2" placeholder="Descrição do serviço..." name="descricao" id="descricaoServicoAlterar">{{descricao}}</textarea>
+                                        </div>
+                                      </div>
+                                  </div>
+                                  {{/each}}
+                                  <hr />
+                                <button type="submit" class="btn btn-success mt-2">Salvar alterações</button>
+                          </form>
+                        </div>
+                            
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+       
+
+        <!-- Modal Equipe -->
+        <div class="modal fade" id="modalEquipe" tabindex="-1" role="dialog" aria-labelledby="modalEquipeTitle" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalEquipeTitle">Equipe</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="tituloDescricaoEquipe-tab" data-toggle="tab" href="#tituloDescricaoEquipe" role="tab" aria-controls="tituloDescricaoEquipe" aria-selected="true">Título & Descrição</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="novoEquipe-tab" data-toggle="tab" href="#novoEquipe" role="tab" aria-controls="novoEquipe" aria-selected="false">Novo Membro</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="editarEquipe-tab" data-toggle="tab" href="#editarEquipe" role="tab" aria-controls="editarEquipe" aria-selected="false">Editar Membros</a>
+                </li>
+              </ul>
+              <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="tituloDescricaoEquipe" role="tabpanel" aria-labelledby="tituloDescricaoEquipe-tab">
+                    <div class="card card-body">
+                      <form id="formEquipe">
+                        <label for="titulo">Título: </label>
+                        <input class="form-control" type="text" placeholder="Equipe" name="titulo" id="tituloEquipe" value="{{equipe.[0].titulo}}">
+
+                        <label class="mt-2" for="descricao">Descrição: </label>
+                        <textarea class="form-control" placeholder="Escolhemos a dedo quem faz parte de nossa equipe..." name="descricao" id="descricaoEquipe">{{equipe.[0].descricao}}</textarea>
+
+                        <button type="submit" class="btn btn-success mt-2">Salvar alterações</button>
+                      </form>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="novoEquipe" role="tabpanel" aria-labelledby="novoEquipe-tab">
+                  <div class="card card-body">
+                      <form id="novoFormEquipe">
+                          <div class="row mt-2">
+                            <div class="col">
+                              <label for="nome">Nome: </label>
+                              <input class="form-control" type="text" placeholder="Fulano de tal" name="nome" id="nomeNovoEquipe">
+                            </div>
+                            
+                            <div class="col">
+                              <label for="foto">Foto: </label>
+                              <input class="form-control" type="text" placeholder="https://imgur.com/ds5ff" name="foto" id="fotoNovoEquipe">
+                            </div>
+
+                            <div class="col">
+                              <label for="cargo">Cargo: </label>
+                              <input class="form-control" type="text" placeholder="Estagiário" name="cargo" id="cargoNovoEquipe">
+                            </div>
+                          </div>
+
+                          <h6 class="mt-4">Redes sociais: </h6>
+                          <div class="row mt-2">
+                            <div class="col">
+                              <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon1"><i class="fab fa-twitter"></i></span>
+                                </div>
+                                <input name="twitter" type="text" id="twitterNovoEquipe" class="form-control" placeholder="@LucasLopes" aria-label="Username" aria-describedby="basic-addon1">
+                              </div>
+                            </div>
+                            
+                            <div class="col">
+                              <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon1"><i class="fab fa-facebook-f"></i></span>
+                                </div>
+                                <input name="facebook" type="text" id="facebookNovoEquipe" class="form-control" placeholder="https://FB.com/lucasmouraolopes" aria-label="Username" aria-describedby="basic-addon1">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row mt-2">
+                            <div class="col">
+                              <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon1"><i class="fab fa-linkedin-in"></i></span>
+                                </div>
+                                <input name="linkedin" type="text" id="linkedinNovoEquipe" class="form-control" placeholder="https://www.linkedin.com/in/lucas-rosado" aria-label="Username" aria-describedby="basic-addon1">
+                              </div>
+                            </div>
+                            
+                            <div class="col">
+                              <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon1"><i class="fab fa-github"></i></span>
+                                </div>
+                                <input name="github" type="text" id="githubNovoEquipe" class="form-control" placeholder="https://github.com/Spinkers" aria-label="Username" aria-describedby="basic-addon1">
+                              </div>
+                            </div>
+                          </div>
+
+                          <button type="submit" class="btn btn-success mt-2">Adicionar Membro</button>
+                      </form>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="editarEquipe" role="tabpanel" aria-labelledby="editarEquipe-tab">
+                   <form id="editarFormEquipe">
+                   <div id="listaEquipe" style="max-height: 400px; overflow-y: auto">
+                    {{#each equipe.[0].cards}}
+                    <div class="card mb-3">
+                      <div class="row no-gutters">
+                        <div class="col-md-4">
+                          <img src="{{imagem}}" class="card-img">
+                        </div>
+                        <div class="col-md-8">
+                          <div class="card-body">
+                              <div class="row mt-2">
+                                <div class="col">
+                                  <label for="nome">Nome: </label>
+                                  <div class="input-group flex-nowrap">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text" id="addon-wrapping"><i class="fas fa-user"></i></span>
+                                    </div>
+                                    <input type="text" name="nome" id="nomeEditarEquipe" class="form-control" placeholder="Lucas Lopes" aria-label="Username" aria-describedby="addon-wrapping" value="{{nome}}">
+                                  </div>
+                                </div>
+                                
+                                <div class="col">
+                                  <label for="cargo">Cargo: </label>
+                                  <div class="input-group flex-nowrap">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text" id="addon-wrapping"><i class="fas fa-id-badge"></i></span>
+                                    </div>
+                                    <input type="text" name="cargo" id="cargoEditarEquipe" class="form-control" placeholder="Chief Executive Officer" aria-label="Username" aria-describedby="addon-wrapping" value="{{cargo}}">
+                                  </div>
+                                </div>
+                              </div>
+
+                              <label class="mt-2" for="foto">Foto: </label>
+                              <div class="input-group flex-nowrap">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="addon-wrapping"><i class="fas fa-image"></i></span>
+                                </div>
+                                <input type="text" name="foto" id="fotoEditarEquipe" class="form-control" placeholder="https://imgur.com/fd6s666" aria-label="Username" aria-describedby="addon-wrapping" value="{{imagem}}">
+                              </div>
+
+                              <h6 class="mt-2">Redes sociais: </h6>
+                              <div class="row mt-2">
+                                <div class="col">
+                                  <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text" id="basic-addon1"><i class="fab fa-twitter"></i></span>
+                                    </div>
+                                    <input name="twitter" type="text" id="twitterEditarEquipe" class="form-control" placeholder="@LucasLopes" aria-label="Username" aria-describedby="basic-addon1" value="{{twitter}}">
+                                  </div>
+                                </div>
+                                
+                                <div class="col">
+                                  <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text" id="basic-addon1"><i class="fab fa-facebook-f"></i></span>
+                                    </div>
+                                    <input name="facebook" type="text" id="facebookEditarEquipe" class="form-control" placeholder="https://FB.com/lucasmouraolopes" aria-label="Username" aria-describedby="basic-addon1" value="{{facebook}}">
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="row mt-2">
+                                <div class="col">
+                                  <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text" id="basic-addon1"><i class="fab fa-linkedin-in"></i></span>
+                                    </div>
+                                    <input name="linkedin" type="text" id="linkedinEditarEquipe" class="form-control" placeholder="https://www.linkedin.com/in/lucas-rosado" aria-label="Username" aria-describedby="basic-addon1" value="{{linkedin}}">
+                                  </div>
+                                </div>
+                                
+                                <div class="col">
+                                  <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text" id="basic-addon1"><i class="fab fa-github"></i></span>
+                                    </div>
+                                    <input name="github" type="text" id="githubEditarEquipe" class="form-control" placeholder="https://github.com/Spinkers" aria-label="Username" aria-describedby="basic-addon1" value="{{github}}">
+                                  </div>
+                                </div>
+                              </div>
+                            
+                              <div style="text-align: right">
+                              <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {{/each}}
+                    </div>
+                      <button type="submit" class="btn btn-success mt-2">Salvar alterações</button>
+                    </form>
+                  </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            </div>
+            </div>
+        </div>
+        </div>
+
+
+        <!-- Modal Fatos -->
+        <div class="modal fade" id="modalFatos" tabindex="-1" role="dialog" aria-labelledby="modalFatosTitle" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalFatosTitle">Fatos</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="tituloDescricaoFatos-tab" data-toggle="tab" href="#tituloDescricaoFatos" role="tab" aria-controls="tituloDescricaoFatos" aria-selected="true">Título & Descrição</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="novoFatos-tab" data-toggle="tab" href="#novoFatos" role="tab" aria-controls="novoFatos" aria-selected="false">Novo Fato</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="editarFatos-tab" data-toggle="tab" href="#editarFatos" role="tab" aria-controls="editarFatos" aria-selected="false">Editar Fatos</a>
+                </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="tituloDescricaoFatos" role="tabpanel" aria-labelledby="tituloDescricaoFatos-tab">
+                    <div class="card card-body">
+                      <form id="formFatos">
+                        <label for="tituloFatos">Título: </label>
+                        <input class="form-control" type="text" placeholder="Fatos" name="titulo" id="tituloFatos" value="{{fato.[0].titulo}}">
+
+                        <label class="mt-2" for="descricaoFatos">Descrição: </label>
+                        <textarea class="form-control" placeholder="Números não mentem!" name="descricao" id="descricaoFatos">{{fato.[0].descricao}}</textarea>
+
+                        <button type="submit" class="btn btn-success mt-2">Salvar alterações</button>
+                      </form>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="novoFatos" role="tabpanel" aria-labelledby="novoFatos-tab">
+                    <div class="card card-body">
+                      <form id="formNovoFato">
+                          
+                          <label for="tituloFato">Título: </label>
+                          <input class="form-control" type="text" placeholder="Clientes... Projetos... Usuários..." name="titulo" id="tituloFato">
+
+                          <label class="mt-2" for="numeroFato">Número: </label>
+                          <input class="form-control" type="text" placeholder="533" name="numero" id="numeroFato">
+
+                          <button type="submit" class="btn btn-success mt-2">Adicionar Fato</button>
+                      </form>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="editarFatos" role="tabpanel" aria-labelledby="editarFatos-tab">
+                    <div class="card card-body">
+                      <form id="formEditarFatos">
+                          <div id="listaFatos" style="max-height: 400px; overflow-y: auto">
+                            
+                            {{#each fato.[0].cards}}
+                            <div class="card" style="width: 18rem; display: inline-block;">
+                                <div class="card-header">
+                                    Fato
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <label for="tituloEditarFato">Título: </label>
+                                        <input class="form-control" type="text" placeholder="Clientes... Projetos... Usuários..." name="titulo" id="tituloEditarFato" value="{{titulo}}">
+                                    </li>
+                                    <li class="list-group-item">
+                                        <label class="mt-2" for="numeroEditarFato">Número: </label>
+                                        <input class="form-control" type="text" placeholder="533" name="numero" id="numeroEditarFato" value="{{numero}}">
+                                    </li>
+                                </ul>
+                            </div>
+                            {{/each}}
+
+                          </div>
+                          <button type="submit" class="btn btn-success mt-2">Salvar alterações</button>
+                      </form>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            </div>
+            </div>
+        </div>
+        </div>
+
+      <!-- Modal testemunhos -->
+      <div class="modal fade" id="modalTestemunhos" tabindex="-1" role="dialog" aria-labelledby="modalTestemunhosTitle" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalTestemunhosTitle">Testemunhos</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="tituloDescricaoTestemunhos-tab" data-toggle="tab" href="#tituloDescricaoTestemunhos" role="tab" aria-controls="tituloDescricaoTestemunhos" aria-selected="true">Título & Descrição</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="NovoTestemunho-tab" data-toggle="tab" href="#NovoTestemunho" role="tab" aria-controls="NovoTestemunho" aria-selected="false">Novo Testemunho</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="editarTestemunho-tab" data-toggle="tab" href="#editarTestemunho" role="tab" aria-controls="editarTestemunho" aria-selected="false">Editar Testemunhos</a>
+                  </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                  <div class="tab-pane fade show active" id="tituloDescricaoTestemunhos" role="tabpanel" aria-labelledby="tituloDescricaoTestemunhos-tab">
+                    <div class="card card-body">
+                      <form id="formTestemunhos">
+                        <label for="tituloTestemunhos">Título: </label>
+                        <input class="form-control" type="text" placeholder="Testemunhos" name="titulo" id="tituloTestemunhos" value="{{testemunho.[0].titulo}}">
+
+                        <label class="mt-2" for="descricaoTestemunhos">Descrição: </label>
+                        <textarea class="form-control" placeholder="O que nossos clientes dizem sobre nós" name="descricao" id="descricaoTestemunhos">{{testemunho.[0].descricao}}</textarea>
+
+                        <button type="submit" class="btn btn-success mt-2">Salvar alterações</button>
+                      </form>
+                    </div>
+                  </div>
+                  <div class="tab-pane fade" id="NovoTestemunho" role="tabpanel" aria-labelledby="NovoTestemunho-tab">
+                      <div class="card card-body">
+                      <form id="formNovoTestemunho">
+                          
+                          <label for="idUsuario">Usuário (ID): </label>
+                          <input class="form-control" type="text" placeholder="78GDKJFSD8493JKSFE039" name="idUsuario" id="idUsuario">
+
+                          <label class="mt-2" for="comentario">Comentário: </label>
+                          <textarea class="form-control" type="text" placeholder="Bla Bla Bla" name="comentario" id="comentario"></textarea>
+
+                          <button type="submit" class="btn btn-success mt-2">Adicionar Testemunho</button>
+                      </form>
+                    </div>
+                  </div>
+                  <div class="tab-pane fade" id="editarTestemunho" role="tabpanel" aria-labelledby="editarTestemunho-tab">
+                    <div id="listaTestemunhos" style="max-height: 400px; overflow-y: auto">
+                        {{#each testemunho.[0].cards}}
+                          <div class="card" id="{{usuario._id}}***" style="width: 18rem; display: inline-block;">
+                            {{#if imagem}}
+                            <img src="{{imagem}}" class="card-img-top">
+                            {{else}}
+                            <img src="https://univesounreal.aminoapps.com/static/img/user-icon-placeholder.png" class="card-img-top rounded-circle mx-auto d-block" style="width: 50%;">
+                            {{/if}}
+                            <div class="card-body">
+                              <input type="hidden" id="idUsuarioHidden" value="{{usuario._id}}">
+                              <h5 class="card-title">{{usuario.nome}}</h5>
+                              <p class="card-text">{{comentario}}</p>
+                              <input type="hidden" id="idCardTestemunho" value="{{_id}}">
+                              <a href="" id="{{usuario._id}}" onclick="editarTestemunho(this.id)" class="btn btn-primary" data-toggle="modal" data-target="#modalEditarTestemunhos">Editar</a>
+                            </div>
+                          </div>
+                        {{/each}}
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal editar testemunhos -->
+      <div class="modal fade" id="modalEditarTestemunhos" tabindex="-1" role="dialog" aria-labelledby="modalEditarTestemunhosTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalEditarTestemunhosTitle">Editar Testemunho</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+              <form id="formEditarTestemunhos">
+                <div class="modal-body">
+                    <input type="hidden" name="idCardTestemunhoEditar" id="idCardTestemunhoEditar">
+                    
+                    <label for="idUsuarioEditar">Usuário (ID): </label>
+                    <input class="form-control" type="text" name="idUsuarioEditar" id="idUsuarioEditar">
+
+                    <label class="mt-2" for="comentarioTestemunhoEditar">Comentário: </label>
+                    <textarea class="form-control" type="text" name="comentarioTestemunhoEditar" id="comentarioTestemunhoEditar"></textarea>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                  <button type="submit" type="button" class="btn btn-primary">Salvar alterações</button>
+                </div>
+              </form>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Modal modulos -->
+      <div class="modal fade" id="modalModulos" tabindex="-1" role="dialog" aria-labelledby="modalModulosTitle" aria-hidden="true">
+        
+        <div class="modal-dialog modal-xl" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalModulosTitle">Modulos</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="novoModulo-tab" data-toggle="tab" href="#novoModulo" role="tab" aria-controls="novoModulo" aria-selected="true">Novo Modulo</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="editarModulos-tab" data-toggle="tab" href="#editarModulos" role="tab" aria-controls="editarModulos" aria-selected="false">Editar Modulos</a>
+                </li>
+              </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="novoModulo" role="tabpanel" aria-labelledby="novoModulo-tab">
+                  <div class="card-body">
+                    <form id="formModulo">
+                        <label for="tituloModulo">Título: </label>
+                        <input class="form-control" placeholder="Tickets" type="text" id="tituloModulo">
+
+                        <label for="imagemModulo">Imagem: </label>
+                        <input class="form-control" placeholder="https://imgur.com/LKDJ66" type="text" id="imagemModulo">
+
+                        <label for="descricaoModulo">Descrição: </label>
+                        <textarea class="form-control" placeholder="Este modulo faz tal coisa!" type="text" id="descricaoModulo"></textarea>
+
+                        <button id="novoModulo" class="btn btn-success mt-2">Adicionar modulo</button>
+                    </form>
+
+
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="editarModulos" role="tabpanel" aria-labelledby="editarModulos-tab">
+
+                    <div style="max-height: 400px; overflow-y: auto" id="listaModulos">
+
+                      {{#each modulo}}
+                        <div id="{{_id}}***" class="card mb-3 cardBorderPrimary">
+                            <div class="row no-gutters">
+                            <div class="col-md-2">
+                                <img src="{{imagem}}" class="card-img">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                <h5 class="card-title">{{titulo}}</h5>
+                                <p class="card-text">{{descricao}}</p>
+                                <input type="hidden" value="{{imagem}}" name="imagem" id="imagem">
+                                <input type="hidden" name="idModulo" id="idModulo">
+                                <button id="{{_id}}" onclick="transferirDadosModulo(this.id)" class="btn btn-primary" data-toggle="modal" data-target="#modalEditarModulo"><i class="fas fa-edit"></i></button>
+                                <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                      {{/each}}
+
+                    </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    <!-- Modal editar ticket -->
+    <div class="modal fade" id="modalEditarModulo" tabindex="-1" role="dialog" aria-labelledby="modalEditarModuloTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalEditarModuloTitle">Editar Modulo</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+            <form action="/admin/alterarModulo" method="POST">
+              <div class="modal-body">
+                    <input type="hidden" name="idModulo2" id="idModulo2">
+
+                    <label for="tituloModulo2">Título: </label>
+                    <input class="form-control" name="titulo" placeholder="Tickets" type="text" id="tituloModulo2">
+
+                    <label for="imagemModulo2">Imagem: </label>
+                    <input class="form-control" name="imagem" placeholder="https://imgur.com/LKDJ66" type="text" id="imagemModulo2">
+
+                    <label for="descricaoModulo2">Descrição: </label>
+                    <textarea class="form-control" name="descricao" placeholder="Este modulo faz tal coisa!" type="text" id="descricaoModulo2"></textarea>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-success">Salvar alterações</button>
+              </div>
+            </form>
+        </div>
+      </div>
+    </div>
+
+        

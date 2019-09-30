@@ -1,0 +1,140 @@
+<!-- Ionicons CDN -->
+<link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"/>
+<title>Fotógrafo - Customização</title>
+
+<div id="page-top">
+
+  {{>_menuPainel}}
+
+    <div id="content-wrapper">
+
+      <div class="container-fluid">
+
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active">Customização</li>
+        </ol>
+
+        {{>_toastNotify}}
+         
+        {{>_modalWidget}}
+
+        <!-- Area Chart Example-->
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="fas fa-edit"></i>
+            Widgets</div>
+          <div class="card-body">
+            
+            <div class="card" style="width: 18rem; display: inline-block;">
+              <img src="/img/widgets/slideShow.png" class="card-img-top">
+              <div class="card-body">
+                <h5 class="card-title">SlideShow</h5>
+                <p class="card-text">Torne a experiência de seus clientes mais visual!</p>
+                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modalSlide">Editar</a>
+              </div>
+            </div>
+
+
+            <div class="card" style="width: 18rem; display: inline-block;">
+              <img src="/img/widgets/quemSomos.png" class="card-img-top">
+              <div class="card-body">
+                <h5 class="card-title">Quem Somos</h5>
+                <p class="card-text">Diga a seus visitantes quem você é!</p>
+                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modalQuemSomos">Editar</a>
+              </div>
+            </div>
+
+            <div class="card" style="width: 18rem; display: inline-block;">
+              <img src="/img/widgets/servicos.png" class="card-img-top">
+              <div class="card-body">
+                <h5 class="card-title">Serviços</h5>
+                <p class="card-text">Diga a seus visitantes o que exatamente você faz!</p>
+                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modalServicos">Editar</a>
+              </div>
+            </div>
+
+            <div class="card" style="width: 18rem; display: inline-block;">
+              <img src="/img/widgets/equipe.png" class="card-img-top">
+              <div class="card-body">
+                <h5 class="card-title">Equipe</h5>
+                <p class="card-text">A união faz a força! mostre seu time ao público.</p>
+                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modalEquipe">Editar</a>
+              </div>
+            </div>
+
+            <div class="card" style="width: 18rem; display: inline-block;">
+              <img src="/img/widgets/fatos.png" class="card-img-top">
+              <div class="card-body">
+                <h5 class="card-title">Fatos</h5>
+                <p class="card-text">Contra fatos não há argumentos! Mostre números à eles.</p>
+                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modalFatos">Editar</a>
+              </div>
+            </div>
+
+            <div class="card" style="width: 18rem; display: inline-block;">
+              <img src="/img/widgets/testemunhos.png" class="card-img-top">
+              <div class="card-body">
+                <h5 class="card-title">Testemunhos</h5>
+                <p class="card-text">Transparência é a base da confiança!</p>
+                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modalTestemunhos">Editar</a>
+              </div>
+            </div>
+
+            <div class="card" style="width: 18rem; display: inline-block;">
+              <img src="/img/widgets/modulos.png" class="card-img-top">
+              <div class="card-body">
+                <h5 class="card-title">Modulos</h5>
+                <p class="card-text">Adicione ou edite modulos já existentes no catalogo. </p>
+                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modalModulos">Editar</a>
+              </div>
+            </div>
+
+
+          </div>
+          <div class="card-footer small text-muted">Customizar é bem viver!</div>
+        </div>
+
+
+      </div>
+      <!-- /.container-fluid -->
+
+      {{>_footer}}
+
+    </div>
+    <!-- /.content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Pronto para sair?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Selecione "Sair" se você esta pronto para encerrar sua sessão atual.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+          <a class="btn btn-primary" href="/usuarios/logout">Sair</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+<!-- Funções -->
+<script src="/js/funcoes.js"></script>

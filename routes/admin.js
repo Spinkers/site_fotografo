@@ -9,11 +9,19 @@ require("../models/Usuario")
 const Usuario = mongoose.model("usuarios")
 require("../models/Ticket")
 const Ticket = mongoose.model("tickets")
+require("../models/Slide")
+const Slide = mongoose.model("slides")
 const {eAdmin} = require("../helpers/eAdmin")
 
 /* ROTA PRINCIPAL DO ADM (TELA DE OPERAÇÕES)*/
 router.get("/painel", eAdmin, (req, res) => {
     res.render("admin/painel")
+})
+
+router.get("/customizar", eAdmin, (req, res) => {
+    Slide.find().then((slide) => {
+        res.render("admin/customizar", {slide: slide})
+    })
 })
 
 router.get("/novapostagem", eAdmin, (req,res)=> {
@@ -77,5 +85,64 @@ router.post("/editarpostagem", eAdmin, (req, res) => {
         res.send("417")
     })
 })
+
+router.post('/adicionarSlide', eAdmin, (req, res) => {
+    const novoSlide = new Slide({
+        titulo: req.body.titulo,
+        descricao: req.body.descricao,
+        imagem: req.body.imagem,
+        nomeBotao: req.body.nomeBotao,
+        linkBotao: req.body.linkBotao,
+        inicial: req.body.inicial
+    })
+
+    novoSlide.save().then(() => {
+        Slide.find().then((slide) => {
+            res.send({slide: slide});
+        })
+    }).catch((err) => {
+        req.flash("error_msg", "Houve um erro ao adicionar o slide, tente novamente!")
+        console.log("Erro: " + err)
+        res.redirect("/admin/customizar")
+    })
+});
+
+router.post('/alterarSlide', eAdmin, (req, res) => {
+    Slide.findOne({_id: req.body.idSlide}).then((slide) => {
+        slide.titulo = req.body.nomeSlide,
+        slide.descricao = req.body.descricaoSlide,
+        slide.imagem = req.body.imagemSlide,
+        slide.nomeBotao = req.body.nomeBotaoSlide,
+        slide.linkBotao = req.body.linkBotaoSlide
+
+        if(req.body.inicialSlide == "active"){
+            if(slide.inicial == ""){
+                Slide.findOne({inicial: "active"}).then((slide) => {
+                    slide.inicial = ""
+                    slide.save();
+                }).catch((err) => {
+                    req.flash("error_msg", "Houve um erro ao salvar as alterações")
+                    console.log("Erro: " + err)
+                    res.redirect("/admin/customizar")
+                })
+                slide.inicial = "active"
+            }
+        }else{
+            slide.inicial = ""
+        }
+
+        slide.save().then(() => {
+            req.flash("success_msg", "Alterações salvas com sucesso!")
+            res.redirect('/admin/customizar');            
+        }).catch((err) => {
+            req.flash("error_msg", "Erro interno")
+            res.redirect("/admin/customizar")
+        })
+    }).catch((err) => {
+        req.flash("error_msg", "Houve um erro ao salvar as alterações")
+        console.log("Erro: " + err)
+        res.redirect("/admin/customizar")
+    })
+});
 
 module.exports = router;
