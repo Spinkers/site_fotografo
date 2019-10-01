@@ -11,6 +11,8 @@ require("../models/Ticket")
 const Ticket = mongoose.model("tickets")
 require("../models/Slide")
 const Slide = mongoose.model("slides")
+require("../models/Sobre")
+const Sobre = mongoose.model("sobres")
 const {eAdmin} = require("../helpers/eAdmin")
 
 /* ROTA PRINCIPAL DO ADM (TELA DE OPERAÇÕES)*/
@@ -109,11 +111,11 @@ router.post('/adicionarSlide', eAdmin, (req, res) => {
 
 router.post('/alterarSlide', eAdmin, (req, res) => {
     Slide.findOne({_id: req.body.idSlide}).then((slide) => {
-        slide.titulo = req.body.nomeSlide,
-        slide.descricao = req.body.descricaoSlide,
-        slide.imagem = req.body.imagemSlide,
-        slide.nomeBotao = req.body.nomeBotaoSlide,
-        slide.linkBotao = req.body.linkBotaoSlide
+        slide.titulo = req.body.nomeSlide2,
+        slide.descricao = req.body.descricaoSlide2,
+        slide.imagem = req.body.imagemSlide2,
+        slide.nomeBotao = req.body.nomeBotaoSlide2,
+        slide.linkBotao = req.body.linkBotaoSlide2
 
         if(req.body.inicialSlide == "active"){
             if(slide.inicial == ""){
@@ -136,6 +138,7 @@ router.post('/alterarSlide', eAdmin, (req, res) => {
             res.redirect('/admin/customizar');            
         }).catch((err) => {
             req.flash("error_msg", "Erro interno")
+            console.log("Erro: " + err)
             res.redirect("/admin/customizar")
         })
     }).catch((err) => {
@@ -144,5 +147,43 @@ router.post('/alterarSlide', eAdmin, (req, res) => {
         res.redirect("/admin/customizar")
     })
 });
+
+router.get('/editarSobre', eAdmin, (req,res) => {
+    Sobre.findOne().then((sobre) => {
+        res.render('admin/editarSobre', {sobre: sobre})
+    })
+})
+
+router.post('/editarSobre', eAdmin, (req,res) => {
+    Sobre.findOne().then((sobre) => {
+        sobre.titulo = req.body.titulo,
+        sobre.descricao = req.body.descricao,
+        sobre.linkImagem = req.body.imagem
+
+        sobre.save().then(() => {
+            req.flash("success_msg", "Alterações salvas com sucesso!")
+            res.redirect('/admin/editarSobre'); 
+        }).catch((err) => {
+            req.flash("error_msg", "As alterações não foram salvas, tente novamente!")
+            res.redirect('/admin/editarSobre')
+        })
+    }).catch((err) => {
+        const novoSobre = new Sobre({
+            titulo: req.body.titulo,
+            descricao: req.body.descricao,
+            linkImagem: req.body.imagem
+        })
+    
+        novoSobre.save().then(() => {
+            Sobre.find().then((sobre) => {
+                req.flash("success_msg", "Alterações salvas com sucesso!")
+                res.redirect('/admin/editarSobre'); 
+            })
+        }).catch((err) => {
+            req.flash("error_msg", "As alterações não foram salvas, tente novamente!")
+            res.redirect('/admin/editarSobre')
+        })
+    })
+})
 
 module.exports = router;

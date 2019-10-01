@@ -1,6 +1,6 @@
-<!-- Ionicons CDN -->
-<link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"/>
-<title>Fotógrafo - Customização</title>
+<title>Fotógafo - Editar página Sobre</title>
+
+<div id="mostrarErros"></div>
 
 <div id="page-top">
 
@@ -15,38 +15,40 @@
           <li class="breadcrumb-item">
             <a href="#">Dashboard</a>
           </li>
-          <li class="breadcrumb-item active">Customização</li>
+          <li class="breadcrumb-item active">Editar página de Sobre</li>
         </ol>
-
-        {{>_toastNotify}}
-         
-        {{>_modalWidget}}
 
         <!-- Area Chart Example-->
         <div class="card mb-3">
           <div class="card-header">
-            <i class="fas fa-edit"></i>
-            Widgets</div>
+            <i class="fas fa-clipboard"></i>
+            Editar página de sobre</div>
           <div class="card-body">
             
-            <div class="card" style="width: 18rem; display: inline-block;">
-              <img src="/img/widgets/slideShow.png" class="card-img-top">
-              <div class="card-body">
-                <h5 class="card-title">SlideShow</h5>
-                <p class="card-text">Torne a experiência de seus clientes mais visual!</p>
-                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modalSlide">Editar</a>
-              </div>
-            </div>
+              <form action="/admin/editarSobre" method="POST">
+
+                  <label for="titulo">Título: </label>
+                  <input placeholder="Hernandes Dias Lopes" type="text" class="form-control" name="titulo" value="{{sobre.titulo}}">
+                  
+                  <label class="mt-2" for="imagem">Link da imagem: </label>
+                  <input placeholder="https://imgur.om/6as5dv" type="text" class="form-control" name="imagem" value="{{sobre.linkImagem}}">
+
+                  <label class="mt-2" for="descricao">Descrição: </label>
+                  <textarea class="form-control" id="descricao" placeholder="Sua descrição aqui..." name="descricao">{{sobre.descricao}}</textarea>
+                  
+                  <button type="submit" class="btn btn-primary mt-3">Salvar</button>
+
+              </form>
 
           </div>
-          <div class="card-footer small text-muted">Customizar é bem viver!</div>
+          <div class="card-footer small text-muted">Com a força de vontade você será capaz de vencer seus desafios!</div>
         </div>
 
 
       </div>
       <!-- /.container-fluid -->
 
-      {{>_footer}}
+            {{>_footer}}
 
     </div>
     <!-- /.content-wrapper -->
@@ -79,6 +81,3 @@
   </div>
   
 </div>
-
-<!-- Funções -->
-<script src="/js/funcoes.js"></script>

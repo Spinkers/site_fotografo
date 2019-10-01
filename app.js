@@ -67,6 +67,10 @@ app.get('/', (req, res) => {
     })
 })
 
+app.get('/sobre', (req, res) => {
+    res.render('sobre')
+})
+
 //Rota de login
 app.get('/login', (req, res) => {
     res.render("login")
