@@ -1,0 +1,57 @@
+<title>Contato</title>
+
+<link rel="stylesheet" href="/css/titulos.css">
+
+<div class="body">
+
+    {{>_menu}}
+
+    <div class="card-body">
+        <!-- Grid row -->
+
+        <div class="mx-auto"
+            style="padding: 2%; margin-top: 10%; box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3); border-radius: 10px; min-height: 100%; width: 60%;">
+            <h2 style="text-align: center">Contato</h2>
+            <form action="/usuarios/enviarMensagem" method="POST">
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="nome">Nome: </label>
+                        <input type="text" placeholder="Joãozinho" class="form-control" name="nome" id="nome">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="assunto">Assunto: </label>
+                        <input type="text" placeholder="Orçamento" class="form-control" name="assunto" id="assunto">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label class="mt-2" for="telefone">Telefone: </label>
+                        <input type="text" placeholder="(00) 00000-0000" class="form-control" name="telefone"
+                            id="telefone">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="mt-2" for="email">Email: </label>
+                        <input type="text" placeholder="you@example.com" class="form-control" name="email" id="email">
+                    </div>
+                </div>
+
+                <label class="mt-2" for="conteudo">Conteúdo: </label>
+                <textarea name="conteudo" placeholder="Sua mensagem aqui..." id="conteudo"
+                    class="form-control"></textarea>
+
+                <button type="submit" class="btn btn-primary mt-3">Enviar mensagem</button>
+            </form>
+
+        </div>
+
+
+        {{>_footerInicial}}
+
+    </div>
+
+
+    <style>
+
+    </style>

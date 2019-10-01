@@ -8,6 +8,9 @@ const Ticket = mongoose.model("tickets")
 const bcrypt = require("bcryptjs")
 const passport = require("passport")
 const {eUser} = require("../helpers/eUser")
+require("../models/Mensagem")
+const Mensagem = mongoose.model("mensagens")
+
 
 /* ROTA QUE REALIZA O REGISTRO DE UM USUÁRIO */
 router.post("/registro", (req, res) => {
@@ -81,4 +84,23 @@ router.post("/login", (req, res, next) => {
     })(req, res, next)
 });
 
+router.post("/enviarMensagem", (req,res) => {
+    const novaMensagem = new Mensagem({
+        nome: req.body.nome,
+        email: req.body.email,
+        telefone: req.body.telefone,
+        assunto: req.body.assunto,
+        mensagem: req.body.conteudo
+    })
+
+    novaMensagem.save().then(() => {
+        req.flash("success_msg", "Menssagem enviada com sucesso!")
+        res.redirect("/contato")
+    }).catch((err) => {
+        res.flash("error_msg", "Erro interno.")
+        res.redirect("/contato")
+    })
+
+    
+})
 module.exports = router

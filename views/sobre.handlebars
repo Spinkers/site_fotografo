@@ -9,24 +9,53 @@
     <div class="card-body">
         <!-- Grid row -->
 
-        <div class="mx-auto row" style="padding: 2%; margin-top: 10%; box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3); border-radius: 10px">
+        <div class="mx-auto row"
+            style="padding: 2%; margin-top: 10%; box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3); border-radius: 10px; min-height: 480px;">
+
+            {{#if sobre}}
             <div class="col-4">
-                
+
                 <div class="flip-card">
                     <div class="flip-card-inner">
-                        
+
                         <div class="flip-card-front">
                             <img src="http://abre.ai/olucasmaisgaydasala" style="width: 100%; border-radius: 10px">
                         </div>
-                        
+
                         <div class="flip-card-back">
-                            <h1>John Doe</h1> 
-                            <p>Architect & Engineer</p> 
+                            <h1>{{sobre.titulo}}</h1>
+                            <p>Fotógrafo</p>
+                            <p>Gay</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-8">
+                <h2>{{sobre.titulo}}</h2>
+                <p>
+                    {{sobre.descricao}}
+                </p>
+            </div>
+            {{else}}
+            <div class="col-4">
+
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+
+                        <div class="flip-card-front">
+                            <img src="http://abre.ai/olucasmaisgaydasala" style="width: 100%; border-radius: 10px">
+                        </div>
+
+                        <div class="flip-card-back">
+                            <h1>John Doe</h1>
+                            <p>Architect & Engineer</p>
                             <p>We love that guy</p>
                         </div>
                     </div>
                 </div>
-                
+
             </div>
 
             <div class="col-8">
@@ -55,6 +84,8 @@
                     culpa qui officia deserunt mollit anim id est laborum.
                 </p>
             </div>
+            {{/if}}
+
         </div>
 
 

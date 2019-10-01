@@ -1,0 +1,99 @@
+<!-- Ionicons CDN -->
+<link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"/>
+<title>F0tógrafo - Ouvidoria</title>
+
+<div id="page-top">
+
+  {{>_menuPainel}}
+
+    <div id="content-wrapper">
+
+      <div class="container-fluid">
+
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active">Ouvidoria</li>
+        </ol>
+
+        {{>_toastNotify}}
+         
+        {{>_modalWidget}}
+
+        <!-- Area Chart Example-->
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="fas fa-edit"></i>
+            Mensagens</div>
+          <div class="card-body" id="listaMensagens">
+            
+            {{#if mensagem}}
+                {{#each mensagem}}
+                    {{#if ativo}}
+                        <form id="formOuvidoria">
+                            <input type="hidden" name="idMensagem" id="idMensagem" value="{{_id}}">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Mensagem</h5>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item"><b>Nome: </b>{{nome}}</li>
+                                        <li class="list-group-item"><b>Email: </b>{{email}}</li>
+                                        <li class="list-group-item"><b>Assunto: </b>{{assunto}}</li>
+                                        <li class="list-group-item"><b>Mensagem: </b>{{mensagem}}</li>
+                                    </ul>
+                                    <button type="submit" value="arquivar" id="opcao" class="btn btn-warning mt-3">Arquivar</button>                    
+                                    <button type="submit" value="excluir" id="opcao" class="btn btn-danger mt-3">Excluir</button>                    
+                                </div>
+                            </div>
+                        </form>
+                    {{/if}}
+                {{/each}}
+            {{else}}
+                <p>Não há nenhuma mensagem aqui! :(</p>
+            {{/if}}
+          </div>
+          <div class="card-footer small text-muted">Comunicar é bem viver!</div>
+        </div>
+
+
+      </div>
+      <!-- /.container-fluid -->
+
+      {{>_footer}}
+
+    </div>
+    <!-- /.content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Pronto para sair?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Selecione "Sair" se você esta pronto para encerrar sua sessão atual.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+          <a class="btn btn-primary" href="/usuarios/logout">Sair</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+<!-- Funções -->
+<script src="/js/funcoes.js"></script>

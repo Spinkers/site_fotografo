@@ -14,6 +14,8 @@ const Slide = mongoose.model("slides")
 require("../models/Sobre")
 const Sobre = mongoose.model("sobres")
 const {eAdmin} = require("../helpers/eAdmin")
+require("../models/Mensagem")
+const Mensagem = mongoose.model("mensagens")
 
 /* ROTA PRINCIPAL DO ADM (TELA DE OPERAÇÕES)*/
 router.get("/painel", eAdmin, (req, res) => {
@@ -183,6 +185,12 @@ router.post('/editarSobre', eAdmin, (req,res) => {
             req.flash("error_msg", "As alterações não foram salvas, tente novamente!")
             res.redirect('/admin/editarSobre')
         })
+    })
+})
+
+router.get("/ouvidoria", (req,res) => {
+    Mensagem.find().then((mensagem) => {
+        res.render("admin/ouvidoria", {mensagem: mensagem})
     })
 })
 

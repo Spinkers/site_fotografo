@@ -17,6 +17,8 @@ require("./models/Categoria")
 const Categoria = mongoose.model("categorias")
 require("./models/Slide")
 const Slide = mongoose.model("slides")
+require("./models/Sobre")
+const Sobre = mongoose.model("sobres")
 //Carregando configurações de banco
 const passport = require("passport")
 require("./config/auth")(passport)
@@ -67,8 +69,11 @@ app.get('/', (req, res) => {
     })
 })
 
+//Rota de sobre
 app.get('/sobre', (req, res) => {
-    res.render('sobre')
+    Sobre.findOne().then((sobre) => {
+        res.render('sobre', {sobre: sobre})
+    })
 })
 
 //Rota de login
@@ -79,6 +84,11 @@ app.get('/login', (req, res) => {
 //Rota de registro
 app.get('/register', (req, res) => {
     res.render("register")
+})
+
+//Rota de contato
+app.get('/contato', (req,res) => {
+    res.render("contato")
 })
 
 //Demais rotas
