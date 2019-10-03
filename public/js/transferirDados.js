@@ -6,3 +6,7 @@ function transferirDados(id){
     document.getElementById('descricao2').value = elementos[4].innerHTML;
     document.getElementById('id2').value = id;
 }
+
+function transferirIdMensagem(id){
+    document.getElementById('idMensagem2').value = id;
+}

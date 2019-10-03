@@ -6,6 +6,37 @@
 
   {{>_menuPainel}}
 
+   <!-- Modal excluir ticket -->
+        <div class="modal fade" id="modalExcluir" tabindex="-1" role="dialog" aria-labelledby="ticketTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Excluir ticket</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form method="POST">
+                        <input type="hidden" name="idMensagem2" id="idMensagem2">
+                        <div class="modal-body">
+                            
+                            <h5 style="color: red">Você tem noção do que você está fazendo?</h5>
+                            
+                            <b>Espere um pouco! respire e conte até 10.</b>
+                            
+                            <p class="mt-2">Excluindo um ticket, você estará negligenciando a duvida do seu cliente :(</p>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button formaction="/admin/excluir" type="submit" class="btn btn-danger">Excluir mesmo assim!</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Fim da modal -->
+
     <div id="content-wrapper">
 
       <div class="container-fluid">
@@ -32,7 +63,7 @@
             {{#if mensagem}}
                 {{#each mensagem}}
                     {{#if ativo}}
-                        <form id="formOuvidoria">
+                        <form method="POST">
                             <input type="hidden" name="idMensagem" id="idMensagem" value="{{_id}}">
                             <div class="card">
                                 <div class="card-body">
@@ -43,8 +74,8 @@
                                         <li class="list-group-item"><b>Assunto: </b>{{assunto}}</li>
                                         <li class="list-group-item"><b>Mensagem: </b>{{mensagem}}</li>
                                     </ul>
-                                    <button type="submit" value="arquivar" id="opcao" class="btn btn-warning mt-3">Arquivar</button>                    
-                                    <button type="submit" value="excluir" id="opcao" class="btn btn-danger mt-3">Excluir</button>                    
+                                    <button formaction="/admin/arquivar" type="submit" value="arquivar" id="opcao" class="btn btn-warning mt-3">Arquivar</button>                    
+                                    <button type="button" id="{{_id}}" onClick="transferirIdMensagem(this.id)" class="btn btn-danger mt-3" data-toggle="modal" data-target="#modalExcluir">Excluir</button>                    
                                 </div>
                             </div>
                         </form>
@@ -97,3 +128,4 @@
 
 <!-- Funções -->
 <script src="/js/funcoes.js"></script>
+<script src="/js/transferirDados.js"></script>

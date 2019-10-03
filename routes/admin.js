@@ -19,7 +19,11 @@ const Mensagem = mongoose.model("mensagens")
 
 /* ROTA PRINCIPAL DO ADM (TELA DE OPERAÇÕES)*/
 router.get("/painel", eAdmin, (req, res) => {
-    res.render("admin/painel")
+    Mensagem.count({ ativo: true}, function( err, countMensagens){
+        Postagem.count({}, function( err, countPostagens){
+            res.render("admin/painel", {countMensagens: countMensagens, countPostagens: countPostagens})
+        })
+    })
 })
 
 router.get("/customizar", eAdmin, (req, res) => {
@@ -188,9 +192,33 @@ router.post('/editarSobre', eAdmin, (req,res) => {
     })
 })
 
-router.get("/ouvidoria", (req,res) => {
+router.get("/ouvidoria", eAdmin, (req,res) => {
     Mensagem.find().then((mensagem) => {
         res.render("admin/ouvidoria", {mensagem: mensagem})
+    })
+})
+
+router.post("/arquivar", eAdmin, (req,res) => {
+    Mensagem.findOne({ _id: req.body.idMensagem }).then((mensagem) => {
+        mensagem.ativo = false;
+
+        mensagem.save().then(() => {
+            req.flash("success_msg", "Arquivado com sucesso!");
+            res.redirect('/admin/ouvidoria');
+        }).catch((err) => {
+            res.flash("error_msg","Erro interno")
+            res.redirect('/admin/arquivar')
+        })
+    })
+})
+
+router.post("/excluir", eAdmin, (req,res) => {
+    Mensagem.remove({_id: req.body.idMensagem2}).then(() => {
+        req.flash("success_msg", "Mensagem excluída com sucesso!")
+        res.redirect("/admin/ouvidoria")
+    }).catch((err) => {
+        req.flash("error_msg", "Não foi possível excluír a menssagem.")
+        res.redirect("/admin/ouvidoria")
     })
 })
 
