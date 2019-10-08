@@ -13,6 +13,8 @@ require("../models/Slide")
 const Slide = mongoose.model("slides")
 require("../models/Sobre")
 const Sobre = mongoose.model("sobres")
+require("../models/Configuracao")
+const Configuracao = mongoose.model("configuracoes")
 const {eAdmin} = require("../helpers/eAdmin")
 require("../models/Mensagem")
 const Mensagem = mongoose.model("mensagens")
@@ -195,6 +197,38 @@ router.post('/editarSobre', eAdmin, (req,res) => {
 router.get("/ouvidoria", eAdmin, (req,res) => {
     Mensagem.find().then((mensagem) => {
         res.render("admin/ouvidoria", {mensagem: mensagem})
+    })
+})
+
+router.get("/settings", eAdmin, (req,res) => {
+    Configuracao.findOne().then((configuracao) => {
+        res.render("admin/configuracoes", {configuracao: configuracao})
+    })    
+})
+
+router.post("/alterarLimite", eAdmin, (req, res) => {
+    Configuracao.findOne().then((configuracao) => {
+        configuracao.limite = req.body.limite
+
+        configuracao.save().then(() => {
+            req.flash("success_msg", "Alterações salvas com sucesso!")
+            res.redirect('/admin/settings'); 
+        }).catch((err) => {
+            req.flash("error_msg", "As alterações não foram salvas, tente novamente!")
+            res.redirect('/admin/settings')
+        })
+    }).catch((err) => {
+        const novaConfiguracao = new Configuracao({
+            limite: req.body.limite
+        })
+    
+        novaConfiguracao.save().then(() => {
+                req.flash("success_msg", "Alterações salvas com sucesso!")
+                res.redirect('/admin/settings'); 
+        }).catch((err) => {
+            req.flash("error_msg", "As alterações não foram salvas, tente novamente!")
+            res.redirect('/admin/settings')
+        })
     })
 })
 

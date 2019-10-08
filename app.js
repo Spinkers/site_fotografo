@@ -19,6 +19,8 @@ require("./models/Slide")
 const Slide = mongoose.model("slides")
 require("./models/Sobre")
 const Sobre = mongoose.model("sobres")
+require("./models/Configuracao")
+const Configuracao = mongoose.model("configuracoes")
 //Carregando configurações de banco
 const passport = require("passport")
 require("./config/auth")(passport)
@@ -63,8 +65,12 @@ const db = require("./config/db")
 //Rota raíz
 app.get('/', (req, res) => {
     Slide.find({ativo: true}).then((slide) => {
-        Postagem.find().then((postagem) => {
-            res.render("index", {slide: slide, postagem: postagem})
+        Configuracao.findOne().then((configuracao) => {
+            let postLimit = parseInt(configuracao.limite);
+            
+            Postagem.find().sort({"_id": -1}).limit(postLimit).then((postagem) => {
+                res.render("index", {slide: slide, postagem: postagem})
+            })
         })
     })
 })

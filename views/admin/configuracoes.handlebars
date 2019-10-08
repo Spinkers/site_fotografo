@@ -1,0 +1,76 @@
+<title>Fotógafo - Configurações</title>
+
+<div id="mostrarErros"></div>
+
+<div id="page-top">
+
+  {{>_menuPainel}}
+
+    <div id="content-wrapper">
+
+      <div class="container-fluid">
+
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active">Configurações</li>
+        </ol>
+
+        <!-- Area Chart Example-->
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="fas fa-tools"></i>
+            Configurações</div>
+          <div class="card-body">
+            
+              <form action='/admin/alterarLimite' method='POST'>
+                  <label for="limite">Máximo de postagens por página: </label>
+                  <input placeholder="10" type="text" class="form-control" name="limite" id="limite" value="{{configuracao.limite}}">
+
+                  <button type="submit" class="btn btn-primary mt-3">Salvar</button>
+
+              </form>
+
+          </div>
+          <div class="card-footer small text-muted">Pagine seu blog!</div>
+        </div>
+
+
+      </div>
+      <!-- /.container-fluid -->
+
+            {{>_footer}}
+
+    </div>
+    <!-- /.content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Pronto para sair?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Selecione "Sair" se você esta pronto para encerrar sua sessão atual.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+          <a class="btn btn-primary" href="/usuarios/logout">Sair</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>
