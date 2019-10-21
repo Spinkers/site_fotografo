@@ -3,64 +3,84 @@
 <link rel="stylesheet" href="/css/titulos.css">
 
 <div class="body">
-    
-        {{>_menu}}
 
-              <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  {{>_menu}}
 
-                    <div class="carousel-inner">
-                      {{#each slide}}
-                        <div class="carousel-item {{inicial}}">
-                          <img src="{{imagem}}" class="d-block w-100">
-                        </div>
-                      {{/each}}
-                    </div>
-                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                      <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                      <span class="sr-only">Next</span>
-                    </a>
-                </div>
+  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 
-    <div class="card-body">
-        <!-- Grid row -->
+    <div class="carousel-inner">
+      {{#each slide}}
+      <div class="carousel-item {{inicial}}">
+        <img src="{{imagem}}" class="d-block w-100">
+      </div>
+      {{/each}}
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+
+  <div class="card-body">
+    <!-- Grid row -->
     <div class="row">
 
-        <!-- Grid column -->
-        <div class="col-md-12 d-flex justify-content-center mb-5">
-      
-          <button type="button" class="btn btn-outline-black waves-effect filter titulo" data-rel="all">Tudo</button>
-          <button type="button" class="btn btn-outline-black waves-effect filter titulo" data-rel="1">Montanhas</button>
-          <button type="button" class="btn btn-outline-black waves-effect filter titulo" data-rel="2">Garotas</button>
-      
-        </div>
-        <!-- Grid column -->
-      
+      <!-- Grid column -->
+      <div class="col-md-12 d-flex justify-content-center mb-5">
+
+        <button type="button" class="btn btn-outline-black waves-effect filter titulo" data-rel="all">Tudo</button>
+        <button type="button" class="btn btn-outline-black waves-effect filter titulo" data-rel="1">Montanhas</button>
+        <button type="button" class="btn btn-outline-black waves-effect filter titulo" data-rel="2">Garotas</button>
+
       </div>
-      <!-- Grid row -->
-      
-      <!-- Grid row -->
-      <div class="gallery" id="gallery">
+      <!-- Grid column -->
+
+    </div>
+    <!-- Grid row -->
+
+    <!-- Grid row -->
+    <div class="gallery" id="gallery">
 
       {{#each postagem}}
-        <!-- Grid column -->
-        <div class="mb-3 pics animation all 2">
-          <img class="img-fluid" src="{{linkImagem}}" alt="Card image cap">
-        </div>
-        <!-- Grid column -->
-        {{/each}}
-
-      
+      <!-- Grid column -->
+      <div class="mb-3 pics animation all 2">
+        <img class="img-fluid" src="{{linkImagem}}" alt="Card image cap">
       </div>
-      <!-- Grid row -->
+      <!-- Grid column -->
+      {{/each}}
 
 
     </div>
+    <!-- Grid row -->
 
-   {{>_footerInicial}}
+
+  </div>
+
+  <nav aria-label="..." class="mx-auto">
+    <ul class="pagination">
+      <li class="page-item disabled">
+        <span class="page-link">Previous</span>
+      </li>
+      <li class="page-item"><a class="page-link" href="#">1</a></li>
+      <li class="page-item active" aria-current="page">
+        <span class="page-link">
+          2
+          <span class="sr-only">(current)</span>
+        </span>
+      </li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item">
+        <a class="page-link" href="#">Next</a>
+      </li>
+    </ul>
+  </nav>
+
+
+  {{>_footerInicial}}
 
 </div>
 
